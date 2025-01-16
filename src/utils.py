@@ -21,7 +21,7 @@ class YoloUtils:
         else:
             return coord
         
-    def pixel2yolo(self, dim, pixel_coords):
+    def pixel_to_yolo(self, dim, pixel_coords):
         
         """
             Transforms coordinates in YOLO format to coordinates in pixels.
@@ -47,7 +47,7 @@ class YoloUtils:
         
         return yolo_coords
     
-    def yolo2pixel(self, dim, yolo_coords):
+    def yolo_to_pixel(self, dim, yolo_coords):
         
         """
             Transforms coordinates in YOLO format to coordinates in pixels.
