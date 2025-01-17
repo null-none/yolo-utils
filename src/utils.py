@@ -1,5 +1,5 @@
 import os
-
+import shapely.wkt
 
 class YoloUtils:
     def __init__(self):
@@ -20,7 +20,15 @@ class YoloUtils:
             return 0
         else:
             return coord
-        
+
+    def polygon_to_yolo(self, polygon, img_width=100, img_height=100):
+        """Convert string defining WKT polygon into YOLO format"""
+        p = shapely.wkt.loads(polygon)
+        x, y = p.centroid.x, p.centroid.y
+        w, h = p.bounds[2] - p.bounds[0], p.bounds[3] - p.bounds[1]
+        return x / img_width, y / img_height, w / img_width, h / img_height
+
+    
     def pixel_to_yolo(self, dim, pixel_coords):
         
         """
