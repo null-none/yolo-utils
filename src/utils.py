@@ -1,5 +1,7 @@
 import os
+import numpy as np
 import shapely.wkt
+
 
 class YoloUtils:
     def __init__(self):
@@ -21,6 +23,28 @@ class YoloUtils:
         else:
             return coord
 
+    def polygon_to_bbox(self, polygon):
+        """
+        Converts a polygon to a bounding box.
+        
+        Args:
+            polygon (list or np.ndarray): A list or array of (x, y) coordinates representing the polygon.
+            
+        Returns:
+            tuple: Bounding box in the format (x_min, y_min, x_max, y_max).
+
+        Example:
+            polygon = [(1, 2), (4, 6), (7, 3), (5, 1)]
+            bbox = polygon_to_bbox(polygon)
+            print("Bounding Box:", bbox)
+        """
+        polygon = np.array(polygon)
+        x_min = np.min(polygon[:, 0])
+        y_min = np.min(polygon[:, 1])
+        x_max = np.max(polygon[:, 0])
+        y_max = np.max(polygon[:, 1])
+        return x_min, y_min, x_max, y_max
+    
     def polygon_to_yolo(self, polygon, img_width=100, img_height=100):
         """Convert string defining WKT polygon into YOLO format"""
         p = shapely.wkt.loads(polygon)
