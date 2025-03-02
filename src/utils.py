@@ -118,6 +118,30 @@ class YoloUtils:
         bbox_info = f"{int(class_id)-1} {x_center} {y_center} {width} {height}"
         return bbox_info
 
+    def center_size_to_bbox(self, center, size):
+        """
+        Convert a rectangle defined by center (x, y) and size (width, height) to a bounding box.
+    
+        Args:
+            center (tuple): (x, y) coordinates of the rectangle center.
+            size (tuple): (width, height) of the rectangle.
+    
+        Returns:
+            tuple: (xmin, ymin, xmax, ymax) bounding box.
+        """
+        cx, cy = center
+        width, height = size
+    
+        half_width = width / 2
+        half_height = height / 2
+    
+        xmin = cx - half_width
+        ymin = cy - half_height
+        xmax = cx + half_width
+        ymax = cy + half_height
+    
+        return xmin, ymin, xmax, ymax
+    
     def annotation_to_cv2(self, input_file, output_file):
         with open(input_file, "r") as f:
             lines = f.readlines()
